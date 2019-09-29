@@ -6,8 +6,7 @@ typedef struct queuenode
 
 typedef struct queue
 {
-    QueueNode * front;
-    QueueNode * back;
+    QueueNode * contents;
 } Queue;
 
 void queuePush(Queue * q, void * val);

@@ -13,25 +13,33 @@ static QueueNode * createQueueNode(void * val)
 void queuePush(Queue * q, void * val)
 {
     QueueNode * new = createQueueNode(val);
-    if(q->front == NULL)
+    if(q->contents == NULL)
     {
-        q->front = new;
-        q->back = new;
+        q->contents = new;
+        new->next = new;
     }
     else
     {
-        q->back->next = new;
-        q->back = new;
+        new->next = q->contents->next;
+        q->contents->next = new;
+        q->contents = new;
     }
 }
 
 void * queuePop(Queue * q)
 {
-    if(q->front == NULL)
+    if(q->contents == NULL)
         return NULL;
-    void * ret = q->front->val;
-    QueueNode * temp = q->front;
-    q->front = q->front->next;
+    void * ret = q->contents->next->val;
+    QueueNode * temp = q->contents->next;
+    if(q->contents == q->contents->next)
+    {
+        q->contents = NULL;
+    }
+    else
+    {
+        q->contents->next = q->contents->next->next;
+    }
     free(temp);
     return ret;
 }
@@ -39,15 +47,14 @@ void * queuePop(Queue * q)
 Queue *initQueue()
 {
     Queue * q = malloc(sizeof(Queue));
-    q->front = NULL;
-    q->back = NULL;
+    q->contents = NULL;
     return q;
 }
 
 void freeQueue(Queue *q)
 {
-    QueueNode * itr = q->front;
-    QueueNode *tempitr = q->front;
+    QueueNode * itr = q->contents;
+    QueueNode *tempitr = q->contents;
     while(itr)
     {
         itr = itr->next;
