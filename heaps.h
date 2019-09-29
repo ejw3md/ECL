@@ -6,6 +6,12 @@ typedef struct heapnode
     struct heapnode * right;
 } HeapNode;
 
-HeapNode* addElement(HeapNode* heap, void * val, int (*compare)(void *, void *));
-void * popElement(HeapNode** heap, int (*compare)(void *, void *));
-void freeHeap(HeapNode * heap);
+typedef struct heap
+{
+    struct heapnode * contents;
+} Heap;
+
+Heap * initHeap();
+void heapPush(Heap * heap, void * val, int (*compare)(void *, void *));
+void * heapPop(Heap * heap, int (*compare)(void *, void *));
+void freeHeap(Heap * heap);

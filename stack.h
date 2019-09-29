@@ -10,7 +10,7 @@ typedef struct stack
     struct stacknode * contents;
 } Stack;
 
+Stack * initStack();
 void stackPush(Stack * s, void * val);
 void * stackPop(Stack * s);
-Stack * initStack();
 void freeStack(Stack * s);

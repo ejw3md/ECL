@@ -2,7 +2,7 @@
 
 #include "heaps.h"
 
-static HeapNode* createHeapNode(void * val)
+static HeapNode* createNode(void * val)
 {
     HeapNode* new = malloc(sizeof(HeapNode));
 
@@ -14,7 +14,7 @@ static HeapNode* createHeapNode(void * val)
     return new;
 }
 
-HeapNode* addElement(HeapNode* heap, void * val, int (*compare)(void *, void *))
+static HeapNode* addHeapNode(HeapNode* heap, void * val, int (*compare)(void *, void *))
 {
     if(heap == NULL)
     {
@@ -44,17 +44,17 @@ HeapNode* addElement(HeapNode* heap, void * val, int (*compare)(void *, void *))
     {
         if(heap->right->nodesUnder < heap->left->nodesUnder)
         {
-            addElement(heap->right, val, compare);
+            addHeapNode(heap->right, val, compare);
         }
         else
         {
-            addElement(heap->left, val, compare);
+            addHeapNode(heap->left, val, compare);
         }
     }
     return heap;
 }
 
-void * popElement(HeapNode** heap, int (*compare)(void *, void *))
+static void * popHeapNode(HeapNode** heap, int (*compare)(void *, void *))
 {
     if(*heap == NULL)
     {
@@ -70,33 +70,55 @@ void * popElement(HeapNode** heap, int (*compare)(void *, void *))
     }
     else if((*heap)->right == NULL)
     {
-        (*heap)->val = popElement(&(*heap)->left, compare);
+        (*heap)->val = popHeapNode(&(*heap)->left, compare);
 
     }
     else if((*heap)->left == NULL)
     {
-        (*heap)->val = popElement(&(*heap)->right, compare);
+        (*heap)->val = popHeapNode(&(*heap)->right, compare);
     }
     else
     {
         if((*compare)((*heap)->left->val, (*heap)->right->val))
         {
-            (*heap)->val = popElement(&(*heap)->left, compare);
+            (*heap)->val = popHeapNode(&(*heap)->left, compare);
         }
         else
         {
-            (*heap)->val = popElement(&(*heap)->right, compare);
+            (*heap)->val = popHeapNode(&(*heap)->right, compare);
         }
     }
     return val;
 }
 
-void freeHeap(HeapNode * heap)
+static void freeHeapNodes(HeapNode * heap)
 {
     if(heap !=NULL)
     {
-        freeHeap(heap->right);
-        freeHeap(heap->left);
+        freeHeapNodes(heap->right);
+        freeHeapNodes(heap->left);
         free(heap);
     }
+}
+Heap * initHeap()
+{
+    Heap * heap = malloc(sizeof(heap));
+    heap->contents = NULL;
+    return heap;
+}
+
+void heapPush(Heap * heap, void * val, int (*compare)(void *, void *))
+{
+    heap->contents = addHeapNode(heap->contents, val, compare);
+}
+
+void * heapPop(Heap * heap, int (*compare)(void *, void *))
+{
+    return popHeapNode(&heap->contents, compare);
+}
+
+void freeHeap(Heap * heap)
+{
+    freeHeapNodes(heap->contents);
+    free(heap);
 }

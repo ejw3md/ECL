@@ -9,7 +9,7 @@ typedef struct queue
     QueueNode * contents;
 } Queue;
 
+Queue * initQueue();
 void queuePush(Queue * q, void * val);
 void * queuePop(Queue * q);
-Queue * initQueue();
 void freeQueue(Queue * q);
