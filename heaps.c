@@ -1,10 +1,8 @@
-#include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
 
 #include "heaps.h"
 
-HeapNode* createHeapNode(void * val)
+static HeapNode* createHeapNode(void * val)
 {
     HeapNode* new = malloc(sizeof(HeapNode));
 
