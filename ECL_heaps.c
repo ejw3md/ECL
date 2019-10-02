@@ -1,6 +1,6 @@
 #include <stdlib.h>
 
-#include "heaps.h"
+#include "ECL_heaps.h"
 
 static HeapNode* createNode(void * val)
 {

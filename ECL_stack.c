@@ -1,6 +1,6 @@
 #include <stdlib.h>
 
-#include "stack.h"
+#include "ECL_stack.h"
 
 static StackNode * createStack(void * val)
 {

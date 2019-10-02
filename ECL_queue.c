@@ -1,6 +1,7 @@
 #include <stdlib.h>
+#include <stdio.h>
 
-#include "queue.h"
+#include "ECL_queue.h"
 
 static QueueNode * createQueueNode(void * val)
 {
@@ -51,15 +52,20 @@ Queue *initQueue()
     return q;
 }
 
+int queueEmpty(Queue * q)
+{
+    return q->contents == NULL;
+}
+
 void freeQueue(Queue *q)
 {
     QueueNode * itr = q->contents;
     QueueNode *tempitr = q->contents;
-    while(itr)
+    do
     {
         itr = itr->next;
         free(tempitr);
         tempitr = itr;
-    }
+    }while(itr!=q->contents);
     free(q);
 }

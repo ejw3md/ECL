@@ -13,3 +13,4 @@ Queue * initQueue();
 void queuePush(Queue * q, void * val);
 void * queuePop(Queue * q);
 void freeQueue(Queue * q);
+int queueEmpty(Queue * q);
