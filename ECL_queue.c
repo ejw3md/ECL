@@ -64,6 +64,7 @@ void freeQueue(Queue *q)
     do
     {
         itr = itr->next;
+        free(tempitr->val);
         free(tempitr);
         tempitr = itr;
     }while(itr!=q->contents);
