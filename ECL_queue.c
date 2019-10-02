@@ -59,14 +59,17 @@ int queueEmpty(Queue * q)
 
 void freeQueue(Queue *q)
 {
-    QueueNode * itr = q->contents;
-    QueueNode *tempitr = q->contents;
-    do
+    if(q->contents)
     {
-        itr = itr->next;
-        free(tempitr->val);
-        free(tempitr);
-        tempitr = itr;
-    }while(itr!=q->contents);
+        QueueNode * itr = q->contents;
+        QueueNode *tempitr = q->contents;
+        do
+        {
+            itr = itr->next;
+            free(tempitr->val);
+            free(tempitr);
+            tempitr = itr;
+        }while(itr!=q->contents);
+    }
     free(q);
 }
