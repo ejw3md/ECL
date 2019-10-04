@@ -122,3 +122,8 @@ void freeHeap(Heap * heap)
     freeHeapNodes(heap->contents);
     free(heap);
 }
+
+int heapEmpty(Heap * heap)
+{
+    return heap->contents == NULL;
+}

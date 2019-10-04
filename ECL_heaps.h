@@ -15,3 +15,4 @@ Heap * initHeap();
 void heapPush(Heap * heap, void * val, int (*compare)(void *, void *));
 void * heapPop(Heap * heap, int (*compare)(void *, void *));
 void freeHeap(Heap * heap);
+int heapEmpty(Heap * heap);

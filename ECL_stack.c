@@ -46,3 +46,8 @@ void freeStack(Stack *s)
     }
     free(s);
 }
+
+int stackEmpty(Stack * s)
+{
+    return s->contents == NULL;
+}
