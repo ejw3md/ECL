@@ -8,7 +8,7 @@ typedef struct heapnode
 
 typedef struct heap
 {
-    struct heapnode * contents;
+    HeapNode * contents;
 } Heap;
 
 Heap * initHeap();
